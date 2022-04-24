@@ -1,3 +1,6 @@
+<?php
+  include_once '../config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,19 +12,156 @@
     
 <?php
 
-require_once '../config.php';
-
-$sql = "SELECT id, username FROM MyGuests";
+$sql = "SELECT id, username FROM users";
 $result = mysqli_query($link, $sql);
+$resultCheck = mysqli_num_rows($result);
 
-  // output data of each row
-  while($row = mysqli_fetch_assoc($result)) {
-    echo "id: " . $row["id"]. " - Username: " . $row["username"]. "<br>";
+if($resultCheck > 0){
+  while($row = mysqli_fetch_assoc($result)){
   }
+}
 
+echo "<table>";
+  while($row = mysqli_fetch_array($result))
+  {
+    echo "<tr><td>" . $row['id'] . "</td>";
+  }
+echo "</table>";
 
 mysqli_close($link);
 
 ?>
+<div class="wrapper">
+  <h1>PHILIPPINES</h1>
+  <div class="image i1"></div>
+  <div class="details"><h1><em><?php echo $row['id'] . " " . $row['username']; ?> </em></h1>
+  <h2>Surfer's Home</h2>
+  <p>3 Days - 2 Nights</p></div>
+  <h1>£750</h1>
+</div>
+
+<div class="wrapper">
+  <h1>THAILAND</h1>
+  <div class="image i2"></div>
+  <div class="details"><h1><em>Mae Hong Son</em></h1>
+  <h2>Farmer's Walk</h2>
+  <p>4 Days - 3 Nights</p></div>
+  <h1>£950</h1>
+</div>
+
+<div class="wrapper">
+  <h1>JAPAN</h1>
+  <div class="image i3"></div>
+  <div class="details"><h1><em>Tokyo</em></h1>
+  <h2>Mandarin Oriental</h2>
+  <p>3 Days - 2 Nights</p></div>
+  <h1>£1250</h1>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Lato:200,400|Playfair+Display');
+body {
+  background-image: linear-gradient(190deg, rgba(0, 0, 99, .05) 10%, rgba(0, 0, 255, .19) 100%);
+  padding: 0;
+  margin: 0;
+}
+.wrapper {
+  float: left;
+  width: 30%;
+  min-width: 300px;
+  background-color: #f1f1f1;
+  margin: 1.5%;
+  padding: 2em 1em;
+  box-sizing: border-box;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
+  text-align: center;
+}
+.wrapper>h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 200;
+  font-size: 1.5em;
+  letter-spacing: .15em;
+  color: #333;
+}
+.details {
+  width: 95%;
+  margin: 0 auto 2em;
+  padding-top: 10.5em;
+  padding-bottom: 1em;
+  background-color: #FFEBC8;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 5px rgba(0, 0, 0, 0.24);
+  transition: all ease-in 0.15s;
+}
+
+.wrapper:hover .details{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 5px rgba(0,0,0,0.22);
+  transform: translate(0px, -2px) scale(1.01);
+}
+
+.details>h1 {
+  font-family: "Playfair Display";
+  font-size: 1em;
+}
+.details>h2 {
+  font-family: sans-serif;
+  font-size: 1.4em;
+  font-weight: 200;
+  letter-spacing: 0.1em;
+}
+.details>p {
+  font-family: sans-serif;
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.image{
+  position: relative;
+  z-index: 2;
+  width: 85%;
+  height: 250px;
+  margin: 0 auto -10em;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 10px rgba(0, 0, 0, 0.24);
+  transition: all ease-in .15s;
+}
+.wrapper:hover .image{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transform: translate(0px, -3px) scale(1.02);
+}
+  
+.i1{
+    background-image: url(https://31.media.tumblr.com/9e9ba532a3174811c79e07bc4a61ebdc/tumblr_n92w6iRSjY1r5gmiko1_500.jpg);
+}
+.i2 {
+  background-image: url(http://www.asianventure.com/images/country/vietnam.jpg);
+}
+.i3 {
+  background-image: url(https://media-cdn.tripadvisor.com/media/photo-s/06/c7/ba/92/salah-satu-bangunan-di.jpg);
+  }
+
+@media screen and (max-width: 1000px) {
+  .wrapper{
+    width: 47%;
+  }
+}
+@media screen and(max-width:700px){
+  .wrapper{
+    float: none;
+    width: 70%;
+    margin: 1em auto;
+  }
+}
+@media screen and(max-width:700px){
+  .wrapper{
+    float: none;
+    width: 70%;
+    margin: 1em auto;
+  }
+}
+
+
+</style>
 </body>
 </html>
