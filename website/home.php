@@ -5,58 +5,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Homepage</title>
+    <title>Hotels</title>
     <script src="https://cdn.tailwindcss.com" defer></script>
 </head>
 <body>
-    
+<header class="header">
+		<h1 class="logo"><a href="#">Hotels</a></h1>
+      <ul class="main-nav">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#"><b>Log Out</b></a></li>
+      </ul>
+	</header> 
+
 <?php
 
-$sql = "SELECT id, username FROM users";
-$result = mysqli_query($link, $sql);
-$resultCheck = mysqli_num_rows($result);
+$sql = "SELECT id, Name, cena, lokacija FROM hotels";
+$result = mysqli_query($link,$sql);
 
-if($resultCheck > 0){
-  while($row = mysqli_fetch_assoc($result)){
-  }
+if ($result->num_rows>0){
+    while($row = $result->fetch_assoc())
+    {
+      ?>
+        <div class="wrapper"> 
+          <h1><?php echo $row['Name']; ?></h1>
+          <div class="image i1"></div>
+          <div class="details"><h1></h1>
+          <h2><?php echo $row['lokacija']; ?></h2>
+          <p>3 Days - 2 Nights</p></div>
+          <h1><?php echo $row['cena']; ?>$</h1> <br>
+          <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+           Book Now
+        </button>
+
+
+        </div>
+      <?php
+
+    }
+
+}
+else{
+    echo "0 result";
 }
 
-echo "<table>";
-  while($row = mysqli_fetch_array($result))
-  {
-    echo "<tr><td>" . $row['id'] . "</td>";
-  }
-echo "</table>";
+//Fetch resulting rows as an array
 
-mysqli_close($link);
+$informed = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// Freeing result from the memory.
+
+mysqli_free_result($result);
+
 
 ?>
-<div class="wrapper">
-  <h1>PHILIPPINES</h1>
-  <div class="image i1"></div>
-  <div class="details"><h1><em><?php echo $row['id'] . " " . $row['username']; ?> </em></h1>
-  <h2>Surfer's Home</h2>
-  <p>3 Days - 2 Nights</p></div>
-  <h1>£750</h1>
-</div>
-
-<div class="wrapper">
-  <h1>THAILAND</h1>
-  <div class="image i2"></div>
-  <div class="details"><h1><em>Mae Hong Son</em></h1>
-  <h2>Farmer's Walk</h2>
-  <p>4 Days - 3 Nights</p></div>
-  <h1>£950</h1>
-</div>
-
-<div class="wrapper">
-  <h1>JAPAN</h1>
-  <div class="image i3"></div>
-  <div class="details"><h1><em>Tokyo</em></h1>
-  <h2>Mandarin Oriental</h2>
-  <p>3 Days - 2 Nights</p></div>
-  <h1>£1250</h1>
-</div>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:200,400|Playfair+Display');
@@ -115,6 +118,7 @@ body {
   font-weight: 200;
 }
 
+
 .image{
   position: relative;
   z-index: 2;
@@ -134,12 +138,6 @@ body {
 .i1{
     background-image: url(https://31.media.tumblr.com/9e9ba532a3174811c79e07bc4a61ebdc/tumblr_n92w6iRSjY1r5gmiko1_500.jpg);
 }
-.i2 {
-  background-image: url(http://www.asianventure.com/images/country/vietnam.jpg);
-}
-.i3 {
-  background-image: url(https://media-cdn.tripadvisor.com/media/photo-s/06/c7/ba/92/salah-satu-bangunan-di.jpg);
-  }
 
 @media screen and (max-width: 1000px) {
   .wrapper{
@@ -161,6 +159,111 @@ body {
   }
 }
 
+/* Header  */
+
+
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	min-height: 100vh;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+h2,
+h3,
+a {
+	color: #34495e;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+
+.logo {
+	margin: 0;
+	font-size: 1.85em;
+  font-family: "Garamond";
+  font-weight: bold;
+}
+
+.main-nav {
+	margin-top: 5px;
+
+}
+.logo a,
+.main-nav a {
+	padding: 10px 15px;
+	text-transform: uppercase;
+	text-align: center;
+	display: block;
+}
+
+.main-nav a {
+	color: #34495e;
+	font-size: .99em;
+}
+
+.main-nav a:hover {
+	color: #718daa;
+}
+
+
+
+.header {
+	padding-top: .5em;
+	padding-bottom: .5em;
+	border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+
+
+
+@media (min-width: 769px) {
+	.header,
+	.main-nav {
+		display: flex;
+	}
+	.header {
+		flex-direction: column;
+		align-items: center;
+		width: 80%;
+		margin: 0 auto;
+		max-width: 1150px;
+	}
+	}
+
+
+
+@media (min-width: 1025px) {
+	.header {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+}
 
 </style>
 </body>
