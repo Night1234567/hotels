@@ -12,10 +12,10 @@
 <header class="header">
 		<h1 class="logo"><a href="#">Hotels</a></h1>
       <ul class="main-nav">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#"><b>Log Out</b></a></li>
+          <li><a href="home.php">Home</a></li>
+          <li><a href="about.php">About</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="../logout.php"><b>Log Out</b></a></li>
       </ul>
 	</header> 
 
