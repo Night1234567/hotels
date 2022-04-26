@@ -90,7 +90,7 @@ body {
 .details {
   width: 95%;
   margin: 0 auto 2em;
-  padding-top: 10.5em;
+  padding-top: 1.5em;
   padding-bottom: 1em;
   background-color: #FFEBC8;
   color: #333;
@@ -112,6 +112,7 @@ body {
   font-size: 1.4em;
   font-weight: 200;
   letter-spacing: 0.1em;
+  padding-top: 210px;
 }
 .details>p {
   font-family: sans-serif;
@@ -124,7 +125,7 @@ body {
   position: relative;
   z-index: 2;
   width: 85%;
-  height: 250px;
+  height: 191px;
   margin: 0 auto -10em;
   background-size: cover;
   background-position: center;
