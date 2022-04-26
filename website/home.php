@@ -21,7 +21,7 @@
 
 <?php
 
-$sql = "SELECT id, Name, cena, lokacija FROM hotels";
+$sql = "SELECT id, Name, cena, lokacija, slika FROM hotels";
 $result = mysqli_query($link,$sql);
 
 if ($result->num_rows>0){
@@ -30,8 +30,9 @@ if ($result->num_rows>0){
       ?>
         <div class="wrapper"> 
           <h1><?php echo $row['Name']; ?></h1>
-          <div class="image i1"></div>
+          
           <div class="details"><h1></h1>
+          <div class="image"> <?php echo '<img src="data:images;base64,'.base64_encode($row['slika']).'">'; ?></div>
           <h2><?php echo $row['lokacija']; ?></h2>
           <p>3 Days - 2 Nights</p></div>
           <h1><?php echo $row['cena']; ?>$</h1> <br>
