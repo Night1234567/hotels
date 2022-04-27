@@ -6,19 +6,19 @@ require_once '../config.php';
 $status = $statusMsg = ''; 
 if(isset($_POST["submit"])){ 
     $status = 'error'; 
-    if(!empty($_FILES["image"]["name"])) { 
+    if(!empty($_FILES["slika"]["name"])) { 
         // Get file info 
-        $fileName = basename($_FILES["image"]["name"]); 
+        $fileName = basename($_FILES["slika"]["name"]); 
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
          
         // Allow certain file formats 
         $allowTypes = array('jpg','png','jpeg','gif'); 
         if(in_array($fileType, $allowTypes)){ 
-            $image = $_FILES['image']['tmp_name']; 
+            $image = $_FILES['slika']['tmp_name']; 
             $imgContent = addslashes(file_get_contents($image)); 
          
             // Insert image content into database 
-            $insert = $link->query("INSERT into images (image, created) VALUES ('$imgContent', NOW())"); 
+            $insert = $link->query("INSERT into hotels (slika, created) VALUES ('$imgContent', NOW())"); 
              
             if($insert){ 
                 $status = 'success'; 
@@ -47,8 +47,8 @@ echo $statusMsg;
 </head>
 <body>
 <form action="upload.php" method="post" enctype="multipart/form-data">
-    <label>Select Image File:</label>
-    <input type="file" name="image">
+    <label for = "slika">Select Image File:</label>
+    <input type="file" name="slika">
     <input type="submit" name="submit" value="Upload">
 </form>
 </body>

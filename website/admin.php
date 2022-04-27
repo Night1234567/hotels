@@ -2,10 +2,18 @@
 require_once "../config.php";
  // Taking all 5 values from the form data(input)
 // Closing the connection.
- $Name =  isset($_POST['Name']) ? $_POST['Name'] : '';
- $lokacija = isset($_POST['lokacija']) ? $_POST['lokacija'] : '';
- $cena =  isset($_POST['cena']) ? $_POST['cena'] : '';
- // If file upload form is submitted 
+// if(isset($_POST['submit']))
+// {    
+//      $Name = $_POST['Name'];
+//      $lokacija = $_POST['lokacija'];
+//      $cena = $_POST['cena'];
+     
+//    
+//      $sql = "INSERT INTO hotels (Name,lokacija,cena,slika,created)
+//      VALUES ('$Name','$lokacija','$cena','$imgContent',NOW())";
+//      mysqli_close($link);
+
+// }
 $status = $statusMsg = ''; 
 if(isset($_POST["submit"])){ 
     $status = 'error'; 
@@ -21,9 +29,19 @@ if(isset($_POST["submit"])){
             $imgContent = addslashes(file_get_contents($image)); 
          
             // Insert image content into database 
-            $insert = $link->query("INSERT into hotels (slika, created) VALUES ('$imgContent', NOW())"); 
-             
-            if($insert){ 
+    
+                $Name = $_POST['Name'];
+                $lokacija = $_POST['lokacija'];
+                $cena = $_POST['cena'];
+                $sql = "INSERT INTO hotels (Name,lokacija,cena,slika) VALUES ('$Name','$lokacija','$cena','$imgContent')";   
+    
+            if(mysqli_query($link, $sql)){
+                echo "Records added successfully.";
+            } else{
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            }
+                
+            if($sql){ 
                 $status = 'success'; 
                 $statusMsg = "File uploaded successfully."; 
             }else{ 
@@ -38,11 +56,8 @@ if(isset($_POST["submit"])){
 } 
  
 // Display status message 
-echo $statusMsg; 
-   
- // Performing insert query execution
- // here our table name is college
- $sql = "INSERT INTO hotels VALUES ('$Name','$lokacija','$cena')";
+// echo $statusMsg; 
+mysqli_close($link);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +65,8 @@ echo $statusMsg;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <header class="header">
@@ -63,24 +79,24 @@ echo $statusMsg;
           <li><a href="../logout.php"><b>Log Out</b></a></li>
       </ul>
 	</header> 
-<form action="admin.php" method="post" enctype="multipart/form-data">
+<form action="admin.php" method="post" enctype="multipart/form-data" style="margin: auto; width: 220px; margin-top:10px;">
     <p>
-        <label for="firstName">Име на хотелот:</label>
-        <input type="text" name="Name" id="firstName">
+        <label for="Name">Име на хотелот:</label>
+        <input type="text" name="Name" id="Name">
     </p>                  
     <p>
-        <label for="lastName">Локација:</label>
-        <input type="text" name="lokacija" id="lastName">
+        <label for="lokacija">Локација:</label>
+        <input type="text" name="lokacija" id="lokacija">
     </p>            
     <p>
-    <label for="Gender">Цена:</label>
-        <input type="text" name="cena" id="Gender">
+        <label for="cena">Цена:</label>
+        <input type="text" name="cena" id="cena">
     </p>
     <p>
-    <label>Select Image File:</label>
-        <input type="file" name="image">
+        <label for="slika">Select Image File:</label>
+        <input type="file" name="slika" id="slika" class="btn btn-danger">
     </p>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="btn btn-danger" name="submit">
 </form>
     
 <style>
