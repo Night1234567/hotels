@@ -7,8 +7,9 @@
 </head> 
 <body>
 <header class="header">
-		<h1 class="logo" style="color:#154c79 "><a href="#">Hotels</a></h1>
+		<h1 class="logo" style="color:#154c79 "><a href="#">Hotels|</a></h1>
       <ul class="main-nav">
+          <li><a href="admin.php">Admin</a></li>
           <li><a href="home.php">Home</a></li>
           <li><a href="about.php">About</a></li>
           <li><a href="contact.php">Contact</a></li>
@@ -37,9 +38,6 @@
       </div>
       </body>
 </html>
-
-
-
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:200,400|Playfair+Display');

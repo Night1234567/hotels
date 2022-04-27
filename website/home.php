@@ -12,6 +12,7 @@
 <header class="header">
 		<h1 class="logo"><a href="#">Hotels</a></h1>
       <ul class="main-nav">
+          <li><a href="admin.php">Admin</a></li>
           <li><a href="home.php">Home</a></li>
           <li><a href="about.php">About</a></li>
           <li><a href="contact.php">Contact</a></li>
@@ -21,7 +22,7 @@
 
 <?php
 
-$sql = "SELECT id, Name, cena, lokacija, slika FROM hotels";
+$sql = "SELECT id, Name, cena, lokacija,slika FROM hotels";
 $result = mysqli_query($link,$sql);
 
 if ($result->num_rows>0){
@@ -32,7 +33,7 @@ if ($result->num_rows>0){
           <h1><?php echo $row['Name']; ?></h1>
           
           <div class="details"><h1></h1>
-          <div class="image"> <?php echo '<img src="data:images;base64,'.base64_encode($row['slika']).'">'; ?></div>
+          <div class="image" style="height: 350px;"> <?php echo '<img src="data:images;base64,'.base64_encode($row['slika']).'">'; ?></div>
           <h2><?php echo $row['lokacija']; ?></h2>
           <p>3 Days - 2 Nights</p></div>
           <h1><?php echo $row['cena']; ?>$</h1> <br>

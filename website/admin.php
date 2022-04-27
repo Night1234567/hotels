@@ -1,74 +1,56 @@
 <?php
-
-use PHPMailer\PHPMailer\PHPMailer;
-require __DIR__ . '/vendor/autoload.php';
-
-$errors = [];
-$errorMessage = '';
-
-if (!empty($_POST)) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
-
-    if (empty($name)) {
-        $errors[] = 'Name is empty';
-    }
-
-    if (empty($email)) {
-        $errors[] = 'Email is empty';
-    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Email is invalid';
-    }
-
-    if (empty($message)) {
-        $errors[] = 'Message is empty';
-    }
-
-
-    if (!empty($errors)) {
-        $allErrors = join('<br/>', $errors);
-        $errorMessage = "<p style='color: red;'>{$allErrors}</p>";
-    } else {
-        $mail = new PHPMailer();
-
-        // specify SMTP credentials
-        $mail->isSMTP();
-        $mail->Host = 'smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'd5g6bc7a7dd6c7';
-        $mail->Password = '27f211b3fcad87';
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 2525;
-
-        $mail->setFrom($email, 'Mailtrap Website');
-        $mail->addAddress('martin.tancev1@gmail.com', 'Me');
-        $mail->Subject = 'New message from your website';
-
-        // Enable HTML if needed
-        $mail->isHTML(true);
-
-        $bodyParagraphs = ["Name: {$name}", "Email: {$email}", "Message:", nl2br($message)];
-        $body = join('<br />', $bodyParagraphs);
-        $mail->Body = $body;
-
-        echo $body;
-        if($mail->send()){
-
-            header('Location: thank-you.html'); // redirect to 'thank you' page
-        } else {
-            $errorMessage = 'Oops, something went wrong. Mailer Error: ' . $mail->ErrorInfo;
-        }
-    }
-}
-
+require_once "../config.php";
+ // Taking all 5 values from the form data(input)
+// Closing the connection.
+ $Name =  isset($_POST['Name']) ? $_POST['Name'] : '';
+ $lokacija = isset($_POST['lokacija']) ? $_POST['lokacija'] : '';
+ $cena =  isset($_POST['cena']) ? $_POST['cena'] : '';
+ // If file upload form is submitted 
+$status = $statusMsg = ''; 
+if(isset($_POST["submit"])){ 
+    $status = 'error'; 
+    if(!empty($_FILES["slika"]["name"])) { 
+        // Get file info 
+        $fileName = basename($_FILES["slika"]["name"]); 
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+         
+        // Allow certain file formats 
+        $allowTypes = array('jpg','png','jpeg','gif'); 
+        if(in_array($fileType, $allowTypes)){ 
+            $image = $_FILES['slika']['tmp_name']; 
+            $imgContent = addslashes(file_get_contents($image)); 
+         
+            // Insert image content into database 
+            $insert = $link->query("INSERT into hotels (slika, created) VALUES ('$imgContent', NOW())"); 
+             
+            if($insert){ 
+                $status = 'success'; 
+                $statusMsg = "File uploaded successfully."; 
+            }else{ 
+                $statusMsg = "File upload failed, please try again."; 
+            }  
+        }else{ 
+            $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+        } 
+    }else{ 
+        $statusMsg = 'Please select an image file to upload.'; 
+    } 
+} 
+ 
+// Display status message 
+echo $statusMsg; 
+   
+ // Performing insert query execution
+ // here our table name is college
+ $sql = "INSERT INTO hotels VALUES ('$Name','$lokacija','$cena')";
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Контакт</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
 <header class="header">
@@ -81,68 +63,26 @@ if (!empty($_POST)) {
           <li><a href="../logout.php"><b>Log Out</b></a></li>
       </ul>
 	</header> 
-  <form action="/swiftmailer_form.php" method="post" id="contact-form" style="margin: auto; width: 220px; margin-top:10px;">
-    <h2>Contact us</h2>
-
-    <?php echo((!empty($errorMessage)) ? $errorMessage : '') ?>
+<form action="admin.php" method="post" enctype="multipart/form-data">
     <p>
-      <label>Име:</label>
-      <input name="name" type="text" value=""/>
+        <label for="firstName">Име на хотелот:</label>
+        <input type="text" name="Name" id="firstName">
+    </p>                  
+    <p>
+        <label for="lastName">Локација:</label>
+        <input type="text" name="lokacija" id="lastName">
+    </p>            
+    <p>
+    <label for="Gender">Цена:</label>
+        <input type="text" name="cena" id="Gender">
     </p>
     <p>
-      <label>Емаил адреса:</label>
-      <input style="cursor: pointer;" name="email" value="@gmail.com" type="text"/>
+    <label>Select Image File:</label>
+        <input type="file" name="image">
     </p>
-    <p>
-      <label>Порака:</label>
-      <textarea name="message"></textarea>
-    </p>
-
-    <p>
-      <input type="submit" value="Send" class="btn btn-danger"/>
-    </p>
-  </form>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
-  <script>
-      const constraints = {
-          name: {
-              presence: {allowEmpty: false}
-          },
-          email: {
-              presence: {allowEmpty: false},
-              email: true
-          },
-          message: {
-              presence: {allowEmpty: false}
-          }
-      };
-
-      const form = document.getElementById('contact-form');
-
-      form.addEventListener('submit', function (event) {
-          const formValues = {
-              name: form.elements.name.value,
-              email: form.elements.email.value,
-              message: form.elements.message.value
-          };
-
-          const errors = validate(formValues, constraints);
-
-          if (errors) {
-              event.preventDefault();
-              const errorMessage = Object
-                  .values(errors)
-                  .map(function (fieldValues) {
-                      return fieldValues.join(', ')
-                  })
-                  .join("\n");
-
-              alert(errorMessage);
-          }
-      }, false);
-  </script>
-</body>
-
+    <input type="submit" value="Submit">
+</form>
+    
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:200,400|Playfair+Display');
 body {
@@ -261,6 +201,11 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+
+
+
+
 .logo {
 	margin: 0;
 	font-size: 1.85em;
@@ -352,4 +297,5 @@ ul {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 </style>
+</body>
 </html>
