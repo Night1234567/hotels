@@ -23,7 +23,6 @@
     <label for="phone">Телефонски број</label>
     <input type="tel" id="phone" name="visitor_phone" placeholder="071-500-000" pattern=(\d{3})-?\s?(\d{3})-?\s?(\d{4}) required>
   </div>
-  <hr>
   <div class="elem-group inlined">
     <label for="adult">Возрасни</label>
     <input type="number" id="adult" name="total_adults" placeholder="2" min="1" required>
@@ -41,10 +40,10 @@
     <input type="date" id="checkout-date" name="checkout" required>
   </div>
 
-  <hr>
+ 
   <div class="elem-group">
     <label for="message">Уште нешто?</label>
-    <textarea id="message" name="visitor_message" placeholder="Tell us anything else that might be important." ></textarea>
+    <textarea id="message" name="visitor_message" placeholder="Напишете уште нешто што би било битно." ></textarea>
   </div>
   <button type="submit" class="button">Резервирај</button>
 </form>
@@ -70,7 +69,7 @@ div.elem-group {
 div.elem-group.inlined {
   width: 49%;
   display: inline-block;
-  float: left;
+
 
 }
 
@@ -99,10 +98,6 @@ div.elem-group.inlined input {
 
 textarea {
   height: 130px;
-}
-
-hr {
-  border: 1px dotted #ccc;
 }
 
 button {
