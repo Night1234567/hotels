@@ -42,7 +42,7 @@ if (!empty($_POST)) {
         $mail->Port = 2525;
 
         $mail->setFrom($email, 'Mailtrap Website');
-        $mail->addAddress('piotr@mailtrap.io', 'Me');
+        $mail->addAddress('martin.tancev1@gmail.com', 'Me');
         $mail->Subject = 'New message from your website';
 
         // Enable HTML if needed
@@ -72,15 +72,15 @@ if (!empty($_POST)) {
     <?php echo((!empty($errorMessage)) ? $errorMessage : '') ?>
     <p>
       <label>First Name:</label>
-      <input name="name" type="text" value="dima"/>
+      <input name="name" type="text" value=""/>
     </p>
     <p>
       <label>Email Address:</label>
-      <input style="cursor: pointer;" name="email" value="dima@dima.com" type="text"/>
+      <input style="cursor: pointer;" name="email" value="@gmail.com" type="text"/>
     </p>
     <p>
       <label>Message:</label>
-      <textarea name="message">dima</textarea>
+      <textarea name="message"></textarea>
     </p>
 
     <p>
