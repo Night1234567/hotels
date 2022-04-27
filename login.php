@@ -94,14 +94,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
+    
 </head>
 <body>
-    <div class="wrapper  ml-auto mr-auto mt-10">
-        <h2>Login</h2>
+    <div class="wrapper  ml-auto mr-auto mt-10" >
+        <h2 style="text-align: center;">Login</h2>
         <p>Please fill in your credentials to login.</p>
 
         <?php 
@@ -129,3 +126,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 </body>
 </html>
+<style> 
+body{
+     font: 14px sans-serif;
+     background:#ccccff ;
+    }
+.wrapper{
+  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  
+  color: #000066;
+
+}
+</style>

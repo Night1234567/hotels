@@ -101,10 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
+ 
 </head>
 <body>
     <div class="wrapper ml-auto mr-auto mt-10">
@@ -134,4 +131,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>    
 </body>
-</html>
+</html> 
+
+<style>
+body{
+     font: 14px sans-serif;
+     background:#ccccff ;
+    }
+.wrapper{
+  width: 360px; padding: 20px;  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: #000066;
+}
+</style>
