@@ -37,7 +37,7 @@ if ($result->num_rows>0){
           <h2><?php echo $row['lokacija']; ?></h2>
           <p>3 Days - 2 Nights</p></div>
           <h1><?php echo $row['cena']; ?>$</h1> <br>
-          <button type="button" onclick="location.href = 'book.php';" class="mybtn bg-blue-500 hover:bg-blue-400 font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded active:bg-blue-500 color:white ;transition duration-150 ease-in-out }">
+          <button type="button" onclick="location.href = 'book.php';" class="mybtn bg-blue-500 hover:bg-blue-400 font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded active:bg-blue-500 color:white transition duration-150 ease-in-out }">
             Book Now
         </button>
 
@@ -64,3 +64,9 @@ mysqli_free_result($result);
 ?>
 </body>
 </html>
+
+<style>
+  .mybtn{
+    color: white;
+  }
+</style>
