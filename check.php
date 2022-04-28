@@ -1,6 +1,6 @@
-//<?php
+<?php
 //if (!isset($_SESSION['nID']))
 //{
-//  header("location: login.php");
+//  header("location: register.php");
 //  die();
 //}

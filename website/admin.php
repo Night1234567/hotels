@@ -44,7 +44,6 @@ if(isset($_POST["submit"])){
  
 // Display status message 
 // echo $statusMsg; 
-mysqli_close($link);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,5 +85,46 @@ mysqli_close($link);
     </p>
     <input type="submit" value="Submit" name="submit">
 </form>
+<?php
+$result= mysqli_query($link,"SELECT * FROM hotels");
+if (mysqli_num_rows($result) > 0) {
+
+}
+?>
+  <table style="font-family: arial, sans-serif;border-collapse: collapse;width: 100%;">
+  
+  <tr>
+    <td>Name</td>
+    <td>lokacija</td>
+    <td>cena</td>
+  </tr>
+<?php
+$i=0;
+while($row = mysqli_fetch_array($result)) {
+?>
+<tr>
+    <td><?php echo $row["Name"]; ?> <button type="button" onclick="drop()"></button></td>
+    <td><?php echo $row["lokacija"]; ?></td>
+    <td><?php echo $row["cena"]; ?></td>
+</tr>
+<?php
+$i++;
+// mysqli_close($link);
+
+}
+?>
+</table>
+<style>
+  
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 </body>
 </html>
