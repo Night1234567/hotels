@@ -1,3 +1,6 @@
+<?php
+  include '../check.php';
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +10,7 @@
 </head> 
 <body>
 <header class="header">
-		<h1 class="logo" style="color:#154c79 "><a href="#">Hotels|</a></h1>
+		<h1 class="logo" style="color:#154c79 "><a href="#">Hotels</a></h1>
       <ul class="main-nav">
           <li><a href="admin.php">Admin</a></li>
           <li><a href="home.php">Home</a></li>
